@@ -6,6 +6,7 @@ import { useState } from 'react';
 function App() {
   const [data, setData] = useState(contacts.results);
   const  [newContact, setNewContact] = useState();
+  const [search, setSearch] = useState();
 
    const handleNewContact = (ev) => {
     setNewContact({...newContact, [ev.target.id]: ev.target.value});
@@ -14,6 +15,10 @@ function App() {
    const handleClick = (ev) => {
     ev.preventDefault()
     setData([...data, newContact]);
+   };
+
+   const handleSearch = (ev) => {
+    setSearch(ev.target.value);
    };
 
 
@@ -31,7 +36,17 @@ function App() {
     <div>
       <header className='header'>
         <h1 className='header__title'>Adalabers</h1>
-      </header>
+      </header> 
+      <form action="">
+        <label htmlFor="">Nombre:</label>
+        <input
+          className="addContact"
+          type="text"
+          name="name"
+          id="name"
+          onInput={handleSearch}
+        />  
+        </form> 
       <table className="table">
         <thead>
           <tr>
