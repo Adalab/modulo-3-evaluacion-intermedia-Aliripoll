@@ -64,9 +64,17 @@ function App() {
         <h2>Añadir una nueva Adalaber</h2>
         <form>
           <label htmlFor="name">Nombre:</label>
-          <input type="text" name="name" id="name" onInput={handleNewContact} />
+          <input
+            value={newContact.name}
+            type="text"
+            name="name"
+            id="name"
+            onInput={handleNewContact}
+          />
+
           <label htmlFor="counselor">Tutora:</label>
           <input
+            value={newContact.counselor}
             type="text"
             name="counselor"
             id="counselor"
@@ -75,6 +83,7 @@ function App() {
 
           <label htmlFor="speciality">Especialidad:</label>
           <input
+            value={newContact.speciality}
             type="text"
             name="speciality"
             id="speciality"
