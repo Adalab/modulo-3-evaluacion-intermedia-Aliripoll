@@ -4,13 +4,12 @@ import { useState } from "react";
 
 function App() {
   const [data, setData] = useState(contacts.results);
-  const [newContact, setNewContact] = useState("");
-  const [search, setSearch] = useState({
+  const [newContact, setNewContact] = useState({
     name: "",
     counselor: "",
     speciality: "",
-    social_networks: [],
   });
+  const [search, setSearch] = useState("");
 
   const handleNewContact = (ev) => {
     setNewContact({ ...newContact, [ev.target.id]: ev.target.value });
@@ -24,16 +23,24 @@ function App() {
   const handleSearch = (ev) => {
     setSearch(ev.target.value);
   };
+  const handleClickBtn = (ev) => {
+    ev.preventDefault();
+    setSearch([...data, search]);
+  };
 
-  const htmlData = data.map((oneContact, index) => {
-    return (
-      <tr key={index}>
-        <td>{oneContact.name}</td>
-        <td>{oneContact.counselor}</td>
-        <td>{oneContact.speciality}</td>
-      </tr>
-    );
-  });
+  const htmlData = data
+    .filter((oneContact) =>
+      oneContact.name.toLowerCase().includes(search.toLowerCase())
+    )
+    .map((oneContact, index) => {
+      return (
+        <tr key={index}>
+          <td>{oneContact.name}</td>
+          <td>{oneContact.counselor}</td>
+          <td>{oneContact.speciality}</td>
+        </tr>
+      );
+    });
 
   return (
     <div>
@@ -41,14 +48,18 @@ function App() {
         <h1 className="header__title">Adalabers</h1>
       </header>
       <form action="">
-        <label htmlFor="">Nombre:</label>
+        <label htmlFor="">Name:</label>
         <input
+          value={search.name}
           className="addContact"
-          type="text"
+          type="search"
           name="name"
           id="name"
           onInput={handleSearch}
         />
+        <button className="search_btn" onClick={handleClickBtn}>
+          Search
+        </button>
       </form>
       <table className="table">
         <thead>
